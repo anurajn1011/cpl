@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-int power(int base, int pow)
+float power(float base, int pow)
 {
 	int total = 1;
 	

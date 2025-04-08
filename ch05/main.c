@@ -4,12 +4,12 @@
 
 int main()
 {
-	printf("Enter a number, either int or float");
+	printf("Enter a number, either int or float:\t");
 	
 	float num;
 	
 	if (getfloat(&num)) {
-		printf("You entered the number: \t%f", num);
+		printf("You entered the number: %f", num);
 	}
 	else {
 		printf("invalid number");

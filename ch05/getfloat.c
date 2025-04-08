@@ -4,6 +4,7 @@
 
 #include <stdio.h>
 #include <ctype.h>
+#include <math.h>
 #include "getint_getfloat.h"
 
 float getfloat(float *pn)
@@ -37,7 +38,7 @@ float getfloat(float *pn)
 			}
 			else {
 				//now we are at the decimal part
-				*pn = *pn + ((c - '0')/power(10, decimal));
+				*pn = *pn + ((float)(c - '0')/pow(10.0, decimal));
 				++decimal;
 			}
 		}
