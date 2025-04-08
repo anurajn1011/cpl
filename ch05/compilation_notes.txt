@@ -1,0 +1,20 @@
+-----General Notes on Compilation-----
+For this exercise, I modularized the codebase entirely. Every function (in the case of getch, the pair of functions) received their own file. As such, I wanted to compile all of them into one dll.
+
+To do so, I modified the header file to check if the system is Windows, which was done traditionally. In this case, classically, windows does not automatically handle export and import symbols. So, the details must be defined to the linker. In fact, each function prototype should be prefaced, in this exercise, by the macro DLL_EXPORT, to clarify import export status. However, we are not importing so the #ifndef block is excessive, it is just for best practice. Furthermore, the function prototypes should be decorated by DLL_EXPORT but it works just fine without it in current times. Emphasizing the prior, it is NOT a concern of ours to do this usuallu on Windows nowadays. 
+
+For the actual build of the linker, the following command was used in the PowerShell: gcc -shared -o firstLib.dll -DWINDOWS_DLL_EXPORT -fPIC getch_ungetch.c getfloat.c getint.c mathematics.c
+
+For starters, the above is a hybrid of Linux(fPIC) and traditional Windows construction(-DWINDOWS_DLL_EXPORT). 
+
+-shared : creates a shared library, so on Linux this would be a .so and on Microsoft it's a .dll.
+-DWINDOWS_DLL_EXPORT : the D flags that I am defining a macro  (for the header file), which identifies import/export behavior. This situation marks it for export. 
+-fPIC : "Position Independent Code", shared libraries can be loaded in arbitrary memory locations at every new runtime. As such, position independent code allows us to access the library at any location. For the case of windows, this is not necessary. LINUX CASE.
+
+Compiling main with the builder looks as follows, gcc -o main.exe main.c -L. -lfirstLib -I. -DWINDOWS_DLL_EXPORT
+
+-L. : the search path is in the current directory
+-lfirstLib : tells linker to link against this dll (or library)
+-I : compiler will search for header files in current directory   
+
+To conclude, keep in mind this excessive verbosity is a vestige of older standards. It is good to know how it once was, but much of this can be excised in contemporary circumstances. No need for preprocessor macros to define import/export symbols.
