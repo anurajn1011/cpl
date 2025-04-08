@@ -2,6 +2,7 @@
 	This file contains the getint function defined in Chapter 5 of K&R
 */
 
+#include <stdio.h>
 #include <ctype.h>
 #include "getint_getfloat.h"
 

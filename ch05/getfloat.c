@@ -25,9 +25,9 @@ float getfloat(float *pn)
 	}
 	
 	// we begin to differ noticeably from getint. Now, we want to compute the integer portion as before.
-	decimal = 0;
+	int decimal = 0;
 	for (*pn = 0; isdigit(c) || c == '.'; c = getch()) {
-		if (c == ".") {
+		if (c == '.') {
 			decimal = 1;
 		}
 		else {

@@ -8,8 +8,8 @@ int main()
 	
 	float num;
 	
-	if (getfloat(&num) {
-		printf("You entered the number: %f", num);
+	if (getfloat(&num)) {
+		printf("You entered the number: \t%f", num);
 	}
 	else {
 		printf("invalid number");
