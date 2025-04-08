@@ -8,6 +8,7 @@ extern "C" {
 int getch();
 void ungetch();
 int power(int base, int pow);
+float getfloat(float *pn);
 
 #ifdef __cplusplus
 }
