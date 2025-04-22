@@ -1,4 +1,6 @@
-This mini project is based on the idea presented in CS:APP by Bryant and O'Hallaron from Chapter 10.
+This mini project is following the project presented in CS:APP by Bryant and O'Hallaron from Chapter 10.
+
+RIO - Robust Input/Output
 
 For some background...
 
@@ -7,3 +9,10 @@ Read and Write functions copy at most n bytes and perform some operation on them
 	- Encountering EOF on reads
 	- Reading text lines from terminal
 	- Reading and writing network sockets
+
+Goal of RIO is to handle situations where short counts may be prevalent. To that end, the project has two major functions: 
+
+	- Unbuffered input/output functions
+	- Buffered input functions (permit efficient reading for data from binaries stored in application level buffers)
+
+To elaborate on the later, the input function designed for RIO will be thread safe (avoiding race conditions and data corruption).
