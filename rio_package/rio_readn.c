@@ -8,7 +8,7 @@ ssize_t rio_readn(int fd, void *usrbuf, size_t n)
     
     while (nleft > 0) {
         if ((nread = read(fd, bufptr, nleft)) < 0) {
-            if (errno == EINTR)
+            if (errno == EINTR) // if a signal occurs during sys call
                 nread = 0;
             else
                 return -1;
