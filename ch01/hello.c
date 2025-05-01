@@ -2,5 +2,6 @@
 
 int main() //without the int type declaration, we get 'Undefined reference to WinMain"
 {
-	printf("hello, world");
+	printf("hello, world\n");
+    return 0;
 }
