@@ -15,4 +15,5 @@ Goal of RIO is to handle situations where short counts may be prevalent. To that
 	- Unbuffered input/output functions
 	- Buffered input functions (permit efficient reading for data from binaries stored in application level buffers)
 
-To elaborate on the later, the input function designed for RIO will be thread safe (avoiding race conditions and data corruption).
+To elaborate on the latter, the input function designed for RIO will be thread safe (avoiding race conditions and data corruption).
+

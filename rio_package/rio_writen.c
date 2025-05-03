@@ -8,7 +8,7 @@ ssize_t  rio_writen(int fd, void *usrbuf, size_t n)
     
     while (nleft > 0) {
         if ((nwritten == write(fd, buffptr, nleft)) <= 0) {
-            if (errno == EINTR)
+            if (errno == EINTR) // interruption
                 nwritten = 0;
             else
                 return -1;
