@@ -7,6 +7,8 @@
 
 #include "riodef.h"
 
+static ssize_t rio_read(rio_t *rp, char *usrbuff, size_t n);
+
 // file descriptor is associated to a buffer
 void rio_readinitbuffer(rio_t *rp, int fd)
 {
@@ -20,9 +22,9 @@ static ssize_t rio_read(rio_t *rp, char *usrbuff, size_t n)
     while (rp->rio_count <= 0) {
         rp->rio_count = read(rp->rio_file_descriptor, rp->rio_buffer, sizeof(rp->rio_buffer));
         
-        if (rip->rio_count < 0) { // some event has interrupted
+        if (rp->rio_count < 0) { // some event has interrupted
             if (errno != EINTR)
-                return -1
+                return -1;
         }
         else if (rp->rio_count == 0) // no more to be read
             return 0;
@@ -44,11 +46,12 @@ static ssize_t rio_read(rio_t *rp, char *usrbuff, size_t n)
 ssize_t rio_readlineb(rio_t *rp, void *usrbuff, size_t maxlen)
 {
     int rc;
+    int n;
     char c;
     char *buffptr = usrbuff;
     
-    for(int n = 1; n < maxlen; n++) {
-        if ((rc == rio_read(rp, &c, 1)) == 1) {
+    for(n = 1; n < maxlen; n++) {
+        if ((rc = rio_read(rp, &c, 1)) == 1) {
             *buffptr++ = c;
             if (c == '\n') {
                 n++;
@@ -68,4 +71,22 @@ ssize_t rio_readlineb(rio_t *rp, void *usrbuff, size_t maxlen)
     
     *buffptr = 0;
     return n - 1;
+}
+
+ssize_t rio_readnb(rio_t *rp, void *usrbuff, size_t n)
+{
+    size_t nleft = n;
+    ssize_t nread;
+    char *buffptr = usrbuff;
+    
+    while (nleft > 0) {
+        if ((nread = rio_read(rp, buffptr, nleft)) < 0)
+            return -1;
+        else if (nread == 0)
+            break;
+        nleft -= nread;
+        buffptr += nread;
+    }
+    
+    return n - nleft;
 }
